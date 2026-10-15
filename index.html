@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aung Sales Pro - Advanced Sales Management & Pipeline</title>
+    <title>Aung B2B Consulting & Sales Tracker</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js for Analytics -->
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,126 +14,102 @@
         body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-100 flex h-screen overflow-hidden">
+<body class="bg-slate-900 text-slate-100 flex h-screen overflow-hidden">
 
     <!-- Sidebar -->
-    <aside class="w-64 bg-gray-800 border-r border-gray-700 flex flex-col justify-between hidden md:flex">
+    <aside class="w-64 bg-slate-800 border-r border-slate-700 flex flex-col justify-between hidden md:flex">
         <div>
-            <div class="p-5 border-b border-gray-700 flex items-center space-x-3">
-                <div class="bg-blue-600 p-2 rounded-lg font-bold text-xl text-white">🚀</div>
+            <div class="p-5 border-b border-slate-700 flex items-center space-x-3">
+                <div class="bg-blue-600 p-2 rounded-lg font-bold text-xl text-white">💼</div>
                 <div>
-                    <h1 class="font-bold text-lg text-white">Aung Sales Pro</h1>
-                    <p class="text-xs text-gray-400">Target: 50 Lakhs System</p>
+                    <h1 class="font-bold text-base text-white">Aung Consulting</h1>
+                    <p class="text-xs text-slate-400">Target: 50 Lakhs System</p>
                 </div>
             </div>
             <nav class="p-4 space-y-2">
-                <a href="#" onclick="switchTab('dashboard')" id="nav-dashboard" class="flex items-center space-x-3 px-4 py-2.5 rounded-lg bg-blue-600 text-white font-medium transition">📊 Dashboard</a>
-                <a href="#" onclick="switchTab('pipeline')" id="nav-pipeline" class="flex items-center space-x-3 px-4 py-2.5 rounded-lg text-gray-400 hover:bg-gray-700 hover:text-white transition">🤝 Sales Pipeline</a>
-                <a href="#" onclick="switchTab('calculator')" id="nav-calculator" class="flex items-center space-x-3 px-4 py-2.5 rounded-lg text-gray-400 hover:bg-gray-700 hover:text-white transition">🎯 Target Calculator</a>
+                <a href="#" onclick="switchTab('clients')" id="nav-clients" class="flex items-center space-x-3 px-4 py-2.5 rounded-lg bg-blue-600 text-white font-medium transition">🤝 Consulting Clients</a>
+                <a href="#" onclick="switchTab('revenue')" id="nav-revenue" class="flex items-center space-x-3 px-4 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700 hover:text-white transition">📊 Revenue Breakdown</a>
             </nav>
         </div>
-        <div class="p-4 border-t border-gray-700 text-xs text-gray-400 flex flex-col space-y-2">
-            <p class="text-green-400 font-semibold">● Production Active</p>
-            <button onclick="exportCSV()" class="bg-gray-700 hover:bg-gray-600 text-white py-1.5 px-3 rounded text-center transition">📥 Export CSV Report</button>
+        <div class="p-4 border-t border-slate-700 text-xs text-slate-400">
+            <p class="text-emerald-400 font-semibold mb-1">● 50 Lakhs Roadmap Active</p>
+            <button onclick="exportReport()" class="w-full mt-2 bg-slate-700 hover:bg-slate-600 text-white py-1.5 px-3 rounded text-center transition">📥 Export Data CSV</button>
         </div>
     </aside>
 
-    <!-- Main Content Area -->
+    <!-- Main Content -->
     <main class="flex-1 flex flex-col h-screen overflow-y-auto">
         <!-- Top Header -->
-        <header class="bg-gray-800 border-b border-gray-700 p-4 flex justify-between items-center shadow-md">
-            <h2 id="page-title" class="text-xl font-bold text-white">Dashboard Overview</h2>
+        <header class="bg-slate-800 border-b border-slate-700 p-4 flex justify-between items-center shadow-md">
+            <h2 id="page-title" class="text-xl font-bold text-white">Consulting Clients & Retainer Pipeline</h2>
             <div class="flex items-center space-x-4">
-                <span class="text-sm bg-blue-900 text-blue-200 px-3 py-1 rounded-full font-medium">Automobile & B2B Pro</span>
-                <div class="w-9 h-9 bg-gray-700 rounded-full flex items-center justify-center font-bold text-blue-400 border border-gray-600">AZ</div>
+                <span class="text-sm bg-blue-950 text-blue-300 border border-blue-800 px-3 py-1 rounded-full font-medium">B2B Expert Mode</span>
+                <div class="w-9 h-9 bg-slate-700 rounded-full flex items-center justify-center font-bold text-blue-400 border border-slate-600">AW</div>
             </div>
         </header>
 
-        <!-- Dynamic Content Sections -->
+        <!-- Content Body -->
         <div class="p-6 space-y-6">
 
-            <!-- 1. DASHBOARD TAB -->
-            <section id="tab-dashboard" class="space-y-6">
-                <!-- KPI Cards -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow">
-                        <p class="text-sm text-gray-400">Total Revenue (MTD)</p>
-                        <h3 class="text-2xl font-bold text-white mt-1">၄၂ သိန်း ကျပ်</h3>
-                        <span class="text-xs text-green-400 font-medium">↑ On track for 50 Lakhs</span>
+            <!-- 1. CLIENTS TAB -->
+            <section id="tab-clients" class="space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 shadow">
+                        <p class="text-sm text-slate-400">Active Retainer Clients</p>
+                        <h3 id="stat-active-clients" class="text-2xl font-bold text-white mt-1">၂ ဦး</h3>
+                        <span class="text-xs text-emerald-400 font-medium">Package A & B (10 Lakhs)</span>
                     </div>
-                    <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow">
-                        <p class="text-sm text-gray-400">Active Leads</p>
-                        <h3 id="kpi-leads-count" class="text-2xl font-bold text-white mt-1">၃ ဦး</h3>
-                        <span class="text-xs text-blue-400 font-medium">Pipeline Management</span>
+                    <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 shadow">
+                        <p class="text-sm text-slate-400">Consulting Revenue (MTD)</p>
+                        <h3 id="stat-consulting-rev" class="text-2xl font-bold text-emerald-400 mt-1">၂၀ သိန်း ကျပ်</h3>
+                        <span class="text-xs text-slate-400 font-medium">Target: 20 Lakhs</span>
                     </div>
-                    <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow">
-                        <p class="text-sm text-gray-400">YouTube / Digital Income</p>
-                        <h3 class="text-2xl font-bold text-white mt-1">၈ သိန်း</h3>
-                        <span class="text-xs text-green-400 font-medium">Consistent Passive</span>
-                    </div>
-                    <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow">
-                        <p class="text-sm text-gray-400">Target Achievement</p>
-                        <h3 class="text-2xl font-bold text-green-400 mt-1">၈၄%</h3>
-                        <span class="text-xs text-gray-400 font-medium">Goal: 50 Lakhs</span>
+                    <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 shadow">
+                        <p class="text-sm text-slate-400">Overall Target Progress</p>
+                        <h3 class="text-2xl font-bold text-blue-400 mt-1">၅၀ သိန်း (100%)</h3>
+                        <span class="text-xs text-emerald-400 font-medium">Stable Income Achieved</span>
                     </div>
                 </div>
 
-                <!-- Charts Row -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div class="bg-gray-800 p-5 rounded-xl border border-gray-700">
-                        <h3 class="font-semibold text-lg mb-4 text-white">Monthly Income Growth Projection</h3>
-                        <canvas id="incomeChart" height="140"></canvas>
-                    </div>
-                    <div class="bg-gray-800 p-5 rounded-xl border border-gray-700">
-                        <h3 class="font-semibold text-lg mb-4 text-white">Income Sources Distribution</h3>
-                        <canvas id="funnelChart" height="140"></canvas>
-                    </div>
+                <div class="flex justify-between items-center pt-2">
+                    <h3 class="text-lg font-bold text-white">Retainer & Custom Project Clients</h3>
+                    <button onclick="openModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow">+ Client အသစ်ထည့်မည်</button>
                 </div>
-            </section>
 
-            <!-- 2. PIPELINE TAB -->
-            <section id="tab-pipeline" class="space-y-6 hidden">
-                <div class="flex justify-between items-center">
-                    <h3 class="text-lg font-bold text-white">Client Sales Pipeline</h3>
-                    <button onclick="openModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow">+ Lead အသစ်ထည့်မည်</button>
-                </div>
-                <div class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
+                <!-- Table -->
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden shadow">
                     <table class="w-full text-left border-collapse">
                         <thead>
-                            <tr class="bg-gray-700 text-gray-300 text-xs uppercase tracking-wider">
-                                <th class="p-4">Customer Name</th>
-                                <th class="p-4">Category</th>
-                                <th class="p-4">Deal Value (MMK)</th>
+                            <tr class="bg-slate-700 text-slate-300 text-xs uppercase tracking-wider">
+                                <th class="p-4">Business Name / Client</th>
+                                <th class="p-4">Package Type</th>
+                                <th class="p-4">Monthly Fee (MMK)</th>
                                 <th class="p-4">Status</th>
                                 <th class="p-4">Action</th>
                             </tr>
                         </thead>
-                        <tbody id="pipeline-table-body" class="divide-y divide-gray-700 text-sm">
-                            <!-- Populated via JavaScript -->
+                        <tbody id="client-table-body" class="divide-y divide-slate-700 text-sm">
+                            <!-- JS Populated -->
                         </tbody>
                     </table>
                 </div>
             </section>
 
-            <!-- 3. TARGET CALCULATOR TAB -->
-            <section id="tab-calculator" class="space-y-6 hidden">
-                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 max-w-2xl mx-auto shadow">
-                    <h3 class="text-lg font-bold mb-4 text-white">Monthly 50 Lakhs Target Planner</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm text-gray-400 mb-1">Automobile Salary & Commission (သိန်း)</label>
-                            <input type="number" id="calc-sal" value="18" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2.5 text-white">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-gray-400 mb-1">B2B Consulting & Services (သိန်း)</label>
-                            <input type="number" id="calc-b2b" value="20" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2.5 text-white">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-gray-400 mb-1">YouTube & Digital Assets (သိန်း)</label>
-                            <input type="number" id="calc-dig" value="12" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2.5 text-white">
-                        </div>
-                        <button onclick="calculateTotal()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg transition shadow">တွက်ချက်မည် (Calculate)</button>
-                        <div id="calc-result" class="p-4 bg-gray-900 rounded-lg border border-gray-700 text-center font-bold text-lg text-green-400">
+            <!-- 2. REVENUE TAB -->
+            <section id="tab-revenue" class="space-y-6 hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 shadow">
+                        <h3 class="font-semibold text-lg mb-4 text-white">50 Lakhs Monthly Income Structure</h3>
+                        <canvas id="revenuePieChart" height="150"></canvas>
+                    </div>
+                    <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 shadow space-y-4">
+                        <h3 class="font-semibold text-lg text-white">ဝင်ငွေ ခွဲဝေမှု အသေးစိတ် (Breakdown)</h3>
+                        <ul class="space-y-3 text-sm text-slate-300">
+                            <li class="flex justify-between p-3 bg-slate-700 rounded-lg"><span>1. Automobile Sales Manager (Salary)</span><strong class="text-white">၁၈ သိန်း</strong></li>
+                            <li class="flex justify-between p-3 bg-slate-700 rounded-lg"><span>2. B2B Sales & POS Consulting</span><strong class="text-emerald-400">၂၀ သိန်း</strong></li>
+                            <li class="flex justify-between p-3 bg-slate-700 rounded-lg"><span>3. YouTube & Digital Products</span><strong class="text-blue-400">၁၂ သိန်း</strong></li>
+                        </ul>
+                        <div class="p-4 bg-slate-900 rounded-lg border border-emerald-600 text-center font-bold text-emerald-400 text-base">
                             စုစုပေါင်း ဝင်ငွေ: ၅၀ သိန်း ကျပ် (Target Reached 🎯)
                         </div>
                     </div>
@@ -143,170 +119,129 @@
         </div>
     </main>
 
-    <!-- Modal for Adding Lead -->
-    <div id="lead-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden z-50">
-        <div class="bg-gray-800 border border-gray-700 p-6 rounded-xl w-full max-w-md space-y-4 shadow-2xl">
-            <h3 class="text-lg font-bold text-white">Lead / Deal အသစ်ထည့်သွင်းရန်</h3>
+    <!-- Modal Form -->
+    <div id="client-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden z-50">
+        <div class="bg-slate-800 border border-slate-700 p-6 rounded-xl w-full max-w-md space-y-4 shadow-2xl">
+            <h3 class="text-lg font-bold text-white">Consulting Client အသစ်ထည့်ရန်</h3>
             <div>
-                <label class="block text-sm text-gray-400 mb-1">Customer Name</label>
-                <input type="text" id="modal-name" placeholder="ဥပမာ - ဦးအောင်ကျော်" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2.5 text-white">
+                <label class="block text-sm text-slate-400 mb-1">Business Name / Client Name</label>
+                <input type="text" id="m-name" placeholder="ဥပမာ - Royal Car Showroom" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2.5 text-white">
             </div>
             <div>
-                <label class="block text-sm text-gray-400 mb-1">Category</label>
-                <input type="text" id="modal-cat" placeholder="ဥပမာ - Automobile / POS System" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2.5 text-white">
+                <label class="block text-sm text-slate-400 mb-1">Package Type</label>
+                <select id="m-package" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2.5 text-white">
+                    <option value="Package A: Retail Starter (500k)">Package A: Retail Starter (500k)</option>
+                    <option value="Package B: Executive Channel (1000k)">Package B: Executive Channel (1000k)</option>
+                    <option value="Custom Dashboard Solution">Custom Dashboard Solution</option>
+                </select>
             </div>
             <div>
-                <label class="block text-sm text-gray-400 mb-1">Deal Value (MMK)</label>
-                <input type="text" id="modal-val" placeholder="ဥပမာ - 1,500,000" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2.5 text-white">
+                <label class="block text-sm text-slate-400 mb-1">Monthly Fee (MMK)</label>
+                <input type="text" id="m-fee" placeholder="ဥပမာ - 1,000,000" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2.5 text-white">
             </div>
             <div>
-                <label class="block text-sm text-gray-400 mb-1">Status</label>
-                <select id="modal-status" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2.5 text-white">
-                    <option value="Negotiation">Negotiation</option>
-                    <option value="Proposal Sent">Proposal Sent</option>
-                    <option value="Closed / Won">Closed / Won</option>
+                <label class="block text-sm text-slate-400 mb-1">Status</label>
+                <select id="m-status" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2.5 text-white">
+                    <option value="Active Retainer">Active Retainer</option>
+                    <option value="Proposal Discussion">Proposal Discussion</option>
                 </select>
             </div>
             <div class="flex space-x-3 pt-2">
-                <button onclick="closeModal()" class="w-1/2 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-lg transition">မလုပ်တော့ပါ</button>
-                <button onclick="saveLead()" class="w-1/2 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition">သိမ်းမည်</button>
+                <button onclick="closeModal()" class="w-1/2 bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg transition">မလုပ်တော့ပါ</button>
+                <button onclick="saveClient()" class="w-1/2 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition">သိမ်းမည်</button>
             </div>
         </div>
     </div>
 
-    <!-- JavaScript for Interactivity & LocalStorage -->
+    <!-- Script Logic -->
     <script>
-        let pipelineData = JSON.parse(localStorage.getItem('aung_sales_pipeline')) || [
-            { name: 'ဦးအောင်ကျော် (Car Showroom)', category: 'Automobile Consult', value: '1,500,000', status: 'Negotiation' },
-            { name: 'မေသဇင် (Retail POS System)', category: 'B2B Software', value: '1,000,000', status: 'Closed / Won' },
-            { name: 'Global Distribution Co.', category: 'Channel Strategy', value: '2,000,000', status: 'Proposal Sent' }
+        let clientsData = JSON.parse(localStorage.getItem('aung_consulting_clients')) || [
+            { name: 'Golden Valley Mart (Retail Store)', package: 'Package B: Executive Channel (1000k)', fee: '1,000,000', status: 'Active Retainer' },
+            { name: 'Apex Auto Showroom', package: 'Package B: Executive Channel (1000k)', fee: '1,000,000', status: 'Active Retainer' }
         ];
 
-        function renderPipeline() {
-            const tbody = document.getElementById('pipeline-table-body');
+        function renderClients() {
+            const tbody = document.getElementById('client-table-body');
             tbody.innerHTML = '';
-            pipelineData.forEach((item, index) => {
-                let badgeClass = 'bg-blue-900 text-blue-200';
-                if(item.status === 'Closed / Won') badgeClass = 'bg-green-900 text-green-200';
-                if(item.status === 'Negotiation') badgeClass = 'bg-yellow-900 text-yellow-200';
-
+            clientsData.forEach((item, index) => {
+                let badgeClass = item.status === 'Active Retainer' ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-amber-950 text-amber-300 border border-amber-800';
                 tbody.innerHTML += `
                     <tr>
-                        <td class="p-4 font-medium">${item.name}</td>
-                        <td class="p-4 text-gray-400">${item.category}</td>
-                        <td class="p-4 text-green-400 font-semibold">${item.value}</td>
+                        <td class="p-4 font-medium text-white">${item.name}</td>
+                        <td class="p-4 text-slate-300">${item.package}</td>
+                        <td class="p-4 text-emerald-400 font-semibold">${item.fee} MMK</td>
                         <td class="p-4"><span class="${badgeClass} px-2.5 py-1 rounded-full text-xs font-medium">${item.status}</span></td>
-                        <td class="p-4"><button onclick="deleteLead(${index})" class="text-red-400 hover:underline text-xs">ဖျက်ရန်</button></td>
+                        <td class="p-4"><button onclick="deleteClient(${index})" class="text-rose-400 hover:underline text-xs">ဖျက်ရန်</button></td>
                     </tr>
                 `;
             });
-            document.getElementById('kpi-leads-count').innerText = pipelineData.length + ' ဦး';
-            localStorage.setItem('aung_sales_pipeline', JSON.stringify(pipelineData));
+            document.getElementById('stat-active-clients').innerText = clientsData.filter(c => c.status === 'Active Retainer').length + ' ဦး';
+            localStorage.setItem('aung_consulting_clients', JSON.stringify(clientsData));
         }
 
-        function openModal() { document.getElementById('lead-modal').classList.remove('hidden'); }
-        function closeModal() { document.getElementById('lead-modal').classList.add('hidden'); }
+        function openModal() { document.getElementById('client-modal').classList.remove('hidden'); }
+        function closeModal() { document.getElementById('client-modal').classList.add('hidden'); }
 
-        function saveLead() {
-            let name = document.getElementById('modal-name').value;
-            let cat = document.getElementById('modal-cat').value;
-            let val = document.getElementById('modal-val').value;
-            let status = document.getElementById('modal-status').value;
+        function saveClient() {
+            let name = document.getElementById('m-name').value;
+            let pkg = document.getElementById('m-package').value;
+            let fee = document.getElementById('m-fee').value;
+            let status = document.getElementById('m-status').value;
 
-            if(!name || !val) { alert('ကျေးဇူးပြု၍ အမည်နှင့် တန်ဖိုး ဖြည့်စွက်ပါ။'); return; }
+            if(!name || !fee) { alert('ကျေးဇူးပြု၍ လုပ်ငန်းအမည်နှင့် ကျသင့်ငွေ ဖြည့်စွက်ပါ။'); return; }
 
-            pipelineData.push({ name, category: cat || 'General', value: val, status });
-            renderPipeline();
+            clientsData.push({ name, package: pkg, fee, status });
+            renderClients();
             closeModal();
-            // Clear inputs
-            document.getElementById('modal-name').value = '';
-            document.getElementById('modal-cat').value = '';
-            document.getElementById('modal-val').value = '';
+            document.getElementById('m-name').value = '';
+            document.getElementById('m-fee').value = '';
         }
 
-        function deleteLead(index) {
-            if(confirm('ဒီ Lead ကို ဖျက်မှာ သေချာပါသလား?')) {
-                pipelineData.splice(index, 1);
-                renderPipeline();
+        function deleteClient(index) {
+            if(confirm('ဒီ Client အချက်အလက်ကို ဖျက်မှာ သေချာပါသလား?')) {
+                clientsData.splice(index, 1);
+                renderClients();
             }
         }
 
-        function exportCSV() {
-            let csvContent = "data:text/csv;charset=utf-8,Customer Name,Category,Deal Value,Status\n";
-            pipelineData.forEach(row => {
-                csvContent += `"${row.name}","${row.category}","${row.value}","${row.status}"\n`;
-            });
-            let encodedUri = encodeURI(csvContent);
+        function exportReport() {
+            let csv = "data:text/csv;charset=utf-8,Business Name,Package,Monthly Fee,Status\n";
+            clientsData.forEach(r => { csv += `"${r.name}","${r.package}","${r.fee}","${r.status}"\n`; });
+            let uri = encodeURI(csv);
             let link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "Aung_Sales_Pipeline_Report.csv");
+            link.setAttribute("href", uri);
+            link.setAttribute("download", "Aung_Consulting_Clients_Report.csv");
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
         }
 
-        // Tab Switching Logic
         function switchTab(tabId) {
-            ['dashboard', 'pipeline', 'calculator'].forEach(id => {
+            ['clients', 'revenue'].forEach(id => {
                 document.getElementById('tab-' + id).classList.add('hidden');
                 document.getElementById('nav-' + id).classList.remove('bg-blue-600', 'text-white');
-                document.getElementById('nav-' + id).classList.add('text-gray-400', 'hover:bg-gray-700', 'hover:text-white');
+                document.getElementById('nav-' + id).classList.add('text-slate-400', 'hover:bg-slate-700', 'hover:text-white');
             });
             document.getElementById('tab-' + tabId).classList.remove('hidden');
             document.getElementById('nav-' + tabId).classList.add('bg-blue-600', 'text-white');
-            document.getElementById('nav-' + tabId).classList.remove('text-gray-400', 'hover:bg-gray-700');
-            
-            const titles = { 'dashboard': 'Dashboard Overview', 'pipeline': 'Sales Pipeline Manager', 'calculator': '50 Lakhs Target Calculator' };
-            document.getElementById('page-title').innerText = titles[tabId];
+            document.getElementById('nav-' + tabId).classList.remove('text-slate-400', 'hover:bg-slate-700');
+            document.getElementById('page-title').innerText = tabId === 'clients' ? 'Consulting Clients & Retainer Pipeline' : '50 Lakhs Monthly Revenue Structure';
         }
 
-        // Target Calculator Logic
-        function calculateTotal() {
-            let sal = parseFloat(document.getElementById('calc-sal').value) || 0;
-            let b2b = parseFloat(document.getElementById('calc-b2b').value) || 0;
-            let dig = parseFloat(document.getElementById('calc-dig').value) || 0;
-            let total = sal + b2b + dig;
-            
-            let resBox = document.getElementById('calc-result');
-            if(total >= 50) {
-                resBox.className = "p-4 bg-gray-900 rounded-lg border border-green-600 text-center font-bold text-lg text-green-400";
-                resBox.innerText = `စုစုပေါင်း ဝင်ငွေ: ${total} သိန်း ကျပ် (Target Reached 🎯)`;
-            } else {
-                resBox.className = "p-4 bg-gray-900 rounded-lg border border-yellow-600 text-center font-bold text-lg text-yellow-400";
-                resBox.innerText = `စုစုပေါင်း ဝင်ငွေ: ${total} သိန်း ကျပ် (Target သို့ ရောက်ရန် ${50 - total} သိန်း လိုနေပါသေးသည်)`;
-            }
-        }
-
-        // Initialize Charts & Data on Load
         window.onload = function() {
-            renderPipeline();
-
-            const ctx1 = document.getElementById('incomeChart').getContext('2d');
-            new Chart(ctx1, {
-                type: 'bar',
-                data: {
-                    labels: ['Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5', 'Month 6'],
-                    datasets: [{
-                        label: 'Revenue (Lakhs MMK)',
-                        data: [25, 30, 38, 42, 48, 52],
-                        backgroundColor: '#3b82f6',
-                        borderRadius: 6
-                    }]
-                },
-                options: { responsive: true, plugins: { legend: { display: false } } }
-            });
-
-            const ctx2 = document.getElementById('funnelChart').getContext('2d');
-            new Chart(ctx2, {
+            renderClients();
+            const ctx = document.getElementById('revenuePieChart').getContext('2d');
+            new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Automobile Salary', 'B2B Consulting', 'YouTube/Digital'],
+                    labels: ['Automobile Salary (18L)', 'B2B Consulting (20L)', 'YouTube/Digital (12L)'],
                     datasets: [{
                         data: [18, 20, 12],
-                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b']
+                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b'],
+                        borderWidth: 0
                     }]
                 },
-                options: { responsive: true }
+                options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { color: '#cbd5e1' } } } }
             });
         };
     </script>
