@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aung Sales Pro - Advanced Sales Management Dashboard</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts (Pyidaungsu / Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 flex h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-gray-800 border-r border-gray-700 flex flex-col justify-between hidden md:flex">
+        <div>
+            <div class="p-5 border-b border-gray-700 flex items-center space-x-3">
+                <div class="bg-blue-600 p-2 rounded-lg font-bold text-xl">🚀</div>
+                <div>
+                    <h1 class="font-bold text-lg text-white">Aung Sales Pro</h1>
+                    <p class="text-xs text-gray-400">Management & Pipeline</p>
+                </div>
+            </div>
+            <nav class="p-4 space-y-2">
+                <a href="#" onclick="switchTab('dashboard')" id="nav-dashboard" class="flex items-center space-x-3 px-4 py-2.5 rounded-lg bg-blue-600 text-white font-medium transition">📊 Dashboard</a>
+                <a href="#" onclick="switchTab('pipeline')" id="nav-pipeline" class="flex items-center space-x-3 px-4 py-2.5 rounded-lg text-gray-400 hover:bg-gray-700 hover:text-white transition">🤝 Sales Pipeline</a>
+                <a href="#" onclick="switchTab('calculator')" id="nav-calculator" class="flex items-center space-x-3 px-4 py-2.5 rounded-lg text-gray-400 hover:bg-gray-700 hover:text-white transition">🎯 Target Calculator</a>
+            </nav>
+        </div>
+        <div class="p-4 border-t border-gray-700 text-xs text-gray-400">
+            <p>Target: 5,000,000 MMK / Month</p>
+            <p class="text-green-400 font-semibold mt-1">● System Online</p>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col h-screen overflow-y-auto">
+        <!-- Top Header -->
+        <header class="bg-gray-800 border-b border-gray-700 p-4 flex justify-between items-center shadow-md">
+            <h2 id="page-title" class="text-xl font-bold text-white">Dashboard Overview</h2>
+            <div class="flex items-center space-x-4">
+                <span class="text-sm bg-blue-900 text-blue-200 px-3 py-1 rounded-full font-medium">Automobile & Retail Pro</span>
+                <div class="w-9 h-9 bg-gray-700 rounded-full flex items-center justify-center font-bold text-blue-400 border border-gray-600">AZ</div>
+            </div>
+        </header>
+
+        <!-- Dynamic Content Sections -->
+        <div class="p-6 space-y-6">
+
+            <!-- 1. DASHBOARD TAB -->
+            <section id="tab-dashboard" class="space-y-6">
+                <!-- KPI Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow">
+                        <p class="text-sm text-gray-400">Total Revenue (MTD)</p>
+                        <h3 class="text-2xl font-bold text-white mt-1">၃၈ သိန်း ကျပ်</h3>
+                        <span class="text-xs text-green-400 font-medium">↑ 12% from last month</span>
+                    </div>
+                    <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow">
+                        <p class="text-sm text-gray-400">Active Pipeline Leads</p>
+                        <h3 class="text-2xl font-bold text-white mt-1">၁၄ ဦး</h3>
+                        <span class="text-xs text-blue-400 font-medium">High Closing Probability</span>
+                    </div>
+                    <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow">
+                        <p class="text-sm text-gray-400">YouTube / Digital Income</p>
+                        <h3 class="text-2xl font-bold text-white mt-1">၈.၅ သိန်း</h3>
+                        <span class="text-xs text-green-400 font-medium">Consistent Growth</span>
+                    </div>
+                    <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow">
+                        <p class="text-sm text-gray-400">Target Achievement</p>
+                        <h3 class="text-2xl font-bold text-green-400 mt-1">၇၆%</h3>
+                        <span class="text-xs text-gray-400 font-medium">Goal: 50 Lakhs</span>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-gray-800 p-5 rounded-xl border border-gray-700">
+                        <h3 class="font-semibold text-lg mb-4 text-white">Monthly Income Breakdown</h3>
+                        <canvas id="incomeChart" height="140"></canvas>
+                    </div>
+                    <div class="bg-gray-800 p-5 rounded-xl border border-gray-700">
+                        <h3 class="font-semibold text-lg mb-4 text-white">Lead Conversion Funnel</h3>
+                        <canvas id="funnelChart" height="140"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. PIPELINE TAB -->
+            <section id="tab-pipeline" class="space-y-6 hidden">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-lg font-bold text-white">Client Sales Pipeline</h3>
+                    <button onclick="alert('Lead အသစ် ထည့်သွင်းရန် Form ဖွင့်ပါမည်။')" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">+ Lead အသစ်ထည့်မည်</button>
+                </div>
+                <div class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-700 text-gray-300 text-xs uppercase tracking-wider">
+                                <th class="p-4">Customer Name</th>
+                                <th class="p-4">Category</th>
+                                <th class="p-4">Deal Value (MMK)</th>
+                                <th class="p-4">Status</th>
+                                <th class="p-4">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-700 text-sm">
+                            <tr>
+                                <td class="p-4 font-medium">ဦးအောင်ကျော် (Car Showroom)</td>
+                                <td class="p-4 text-gray-400">Automobile Consult</td>
+                                <td class="p-4 text-green-400 font-semibold">၁,၅၀၀,၀၀၀</td>
+                                <td class="p-4"><span class="bg-yellow-900 text-yellow-200 px-2.5 py-1 rounded-full text-xs font-medium">Negotiation</span></td>
+                                <td class="p-4"><button class="text-blue-400 hover:underline">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-medium">မေသဇင် (Retail POS System)</td>
+                                <td class="p-4 text-gray-400">B2B Software</td>
+                                <td class="p-4 text-green-400 font-semibold">၁,၀၀၀,၀၀၀</td>
+                                <td class="p-4"><span class="bg-green-900 text-green-200 px-2.5 py-1 rounded-full text-xs font-medium">Closed / Won</span></td>
+                                <td class="p-4"><button class="text-blue-400 hover:underline">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-medium">Global Distribution Co.</td>
+                                <td class="p-4 text-gray-400">Channel Strategy</td>
+                                <td class="p-4 text-green-400 font-semibold">၂,၀၀၀,၀၀၀</td>
+                                <td class="p-4"><span class="bg-blue-900 text-blue-200 px-2.5 py-1 rounded-full text-xs font-medium">Proposal Sent</span></td>
+                                <td class="p-4"><button class="text-blue-400 hover:underline">Edit</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 3. TARGET CALCULATOR TAB -->
+            <section id="tab-calculator" class="space-y-6 hidden">
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 max-w-2xl mx-auto shadow">
+                    <h3 class="text-lg font-bold mb-4 text-white">Monthly 50 Lakhs Target Planner</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Automobile Salary & Commission (သိန်း)</label>
+                            <input type="number" id="calc-sal" value="18" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2.5 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">B2B Consulting & Services (သိန်း)</label>
+                            <input type="number" id="calc-b2b" value="20" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2.5 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">YouTube & Digital Assets (သိန်း)</label>
+                            <input type="number" id="calc-dig" value="12" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2.5 text-white">
+                        </div>
+                        <button onclick="calculateTotal()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg transition">တွက်ချက်မည် (Calculate)</button>
+                        <div id="calc-result" class="p-4 bg-gray-900 rounded-lg border border-gray-700 text-center font-bold text-lg text-green-400">
+                            စုစုပေါင်း ဝင်ငွေ: ၅၀ သိန်း ကျပ် (Target Reached 🎯)
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            ['dashboard', 'pipeline', 'calculator'].forEach(id => {
+                document.getElementById('tab-' + id).classList.add('hidden');
+                document.getElementById('nav-' + id).classList.remove('bg-blue-600', 'text-white');
+                document.getElementById('nav-' + id).classList.add('text-gray-400', 'hover:bg-gray-700', 'hover:text-white');
+            });
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            document.getElementById('nav-' + tabId).classList.add('bg-blue-600', 'text-white');
+            document.getElementById('nav-' + tabId).classList.remove('text-gray-400', 'hover:bg-gray-700');
+            
+            const titles = { 'dashboard': 'Dashboard Overview', 'pipeline': 'Sales Pipeline Manager', 'calculator': '50 Lakhs Target Calculator' };
+            document.getElementById('page-title').innerText = titles[tabId];
+        }
+
+        // Target Calculator Logic
+        function calculateTotal() {
+            let sal = parseFloat(document.getElementById('calc-sal').value) || 0;
+            let b2b = parseFloat(document.getElementById('calc-b2b').value) || 0;
+            let dig = parseFloat(document.getElementById('calc-dig').value) || 0;
+            let total = sal + b2b + dig;
+            
+            let resBox = document.getElementById('calc-result');
+            if(total >= 50) {
+                resBox.className = "p-4 bg-gray-900 rounded-lg border border-green-600 text-center font-bold text-lg text-green-400";
+                resBox.innerText = `စုစုပေါင်း ဝင်ငွေ: ${total} သိန်း ကျပ် (Target Reached 🎯)`;
+            } else {
+                resBox.className = "p-4 bg-gray-900 rounded-lg border border-yellow-600 text-center font-bold text-lg text-yellow-400";
+                resBox.innerText = `စုစုပေါင်း ဝင်ငွေ: ${total} သိန်း ကျပ် (Target သို့ ရောက်ရန် ${50 - total} သိန်း လိုနေပါသေးသည်)`;
+            }
+        }
+
+        // Initialize Charts
+        window.onload = function() {
+            const ctx1 = document.getElementById('incomeChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: ['Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5', 'Month 6'],
+                    datasets: [{
+                        label: 'Revenue (Lakhs MMK)',
+                        data: [25, 30, 38, 42, 48, 52],
+                        backgroundColor: '#3b82f6',
+                        borderRadius: 6
+                    }]
+                },
+                options: { responsive: true, plugins: { legend: { display: false } } }
+            });
+
+            const ctx2 = document.getElementById('funnelChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Automobile Salary', 'B2B Consulting', 'YouTube/Digital'],
+                    datasets: [{
+                        data: [18, 20, 12],
+                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b']
+                    }]
+                },
+                options: { responsive: true }
+            });
+        };
+    </script>
+</body>
+</html>
